@@ -101,25 +101,28 @@ arquitectura.
 
 ----------
 ## Unit testing
--- For this example I'm using gomock in order to generate the mock files
+-- Para este ejemplo estoy usado herramientas para mockear las interfaces usadas en los 
+   diferentes files.
 
--- I'm using test tables to define the unit test
+-- Hago el uso de mocks ya que he implementado dependency injection, esto nas facilita hacer test
+   de una forma mas facil sin depender de la implementacion concreta.
 
-## Generate swagger
-swag init -d cmd,internal --parseDependency --parseInternal --parseDepth 2
-
+-- Para definir los unittest hago uso de test tables en las que defino cada uno de los casos.
 
 ## Go to API documentation (swagger):
-http://localhost:8080/swagger/index.html
+-- Para documentar el API hago uso de swaggo
+   (swag init -d cmd,internal --parseDependency --parseInternal --parseDepth 2)
+
+-- swagger esta disponible en esta URL: http://localhost:8080/swagger/index.html
 
 ## How to run it:
 
-For this exaple I'm using `docker-compose`in order to configure a local deployment that going to run
-the `user` service and the local database.
+Para este ejemplo hago uso de `docker-compose` para levantar el servicio y la base de datos local
+esto para no depender de un servicio externo de bases de datos.
 
-start service and database:
+levantar el service y la database:
 `docker-compose up`
 
-stop service and database:
+detener el service and database:
 `docker-compose down`
 
