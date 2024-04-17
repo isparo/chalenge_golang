@@ -5,19 +5,22 @@
 Responde las siguientes preguntas:
 1.- ¿Qué son “shorts variables”?
      - es una forma de declarar las variables en la cual no se declara su tipo y el compilador lo infiere por medio del valor, ejemplo:
+     
      myVar1 := "the value"
      myVar2 := 0
      myVar := false
      
 2.- ¿Cuando puedes utilizar “short variables” y cuando no?
    -- Para declarar y asignar un valor que ya sepamos que va a tener la variable
-   -- En for loops para definir las condiciones for i := 0; i <5; i++ {}
+   -- En for loops para definir las condiciones `for i := 0; i <5; i++ {}` 
    -- cuando tenemos un bloque var() y vamos para declarar variables esto nos ayuda a hacerlo mas legible
+       
        var(
           myVar1 = "the value"
           myVar2 = 0
           myVar = false
        )
+       
    -- Son cuando usamos variables locales ya sea dentro de condiciones, loops, funciones, goroutines, etc.
 
 3.- ¿Qué significa inferencia de tipos de datos?
@@ -46,11 +49,15 @@ Responde las siguientes preguntas:
 
 6.- ¿Qué son los “pointer”?
    - Son variables que almacenan la direccion de memoria de una variable, a diferencia de una variable sin puntero que almacena el valor, cuando se usa un puntero este asigna el valor a un
-     espacio de memoria.
+     espacio de memoria. 
 
-     ejemplo:
-     myValue := 12
-     var myPointer *int = &myValue
+    ejemplo:
+     
+    myValue := 12
+    var myPointer *int = &myValue
+
+    - Los punteros tambien nos ayudan a pasar valores por referencia en las funciones ya que por defecto estas son majadas por valor.
+      Esto es util cuando queremos modificar el valor de alguna propiedad de una structura, etc.
 
 7 .- ¿Qué es “struct”?
      - Es un tipo de dato que nos ayuda a agrupar caracteristicas o propiedades que perteneces a una entidad, por ejemplo Usuario, podemos hacer uso de 
