@@ -54,13 +54,19 @@
 
 6.- ¿Qué son los “pointer”?
 
-   - Son variables que almacenan la direccion de memoria de una variable, a diferencia de una variable sin puntero que almacena el valor, cuando se usa un puntero este asigna el valor a un
-     espacio de memoria. 
+   - Son variables que almacenan el valor en una direccion de memoria, a diferencia de una variable sin puntero que almacena el valor, cuando se usa un puntero este asigna el valor a un espacio de memoria.
+   - Los punteros se definen con el uso de asterisco *, ejemplo: `var myvar *int` para asignarle una referencia se hace usando Ampersand & `myPointer = &variable`.
+   - Para obtener el valor lo podemos hacer por medio del *, `fmt.Println("something: ", *myPointer)`
 
     ejemplo:
      
     myValue := 12
     var myPointer *int = &myValue
+
+    func (s *UserServce) Something() {....}
+    func doMore(v *int) { ..... }
+    doMore(&myPointer)
+
 
  - Los punteros tambien nos ayudan a pasar valores por referencia en las funciones ya que por defecto estas son majadas por valor. Esto es util cuando queremos modificar el valor de alguna propiedad de una structura, etc.
 
