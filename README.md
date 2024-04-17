@@ -2,7 +2,8 @@
 
 ## Preguntas:
 
-Responde las siguientes preguntas:
+-- Responde las siguientes preguntas:
+
 1.- ¿Qué son “shorts variables”?
      - es una forma de declarar las variables en la cual no se declara su tipo y el compilador lo infiere por medio del valor, ejemplo:
      
@@ -21,7 +22,7 @@ Responde las siguientes preguntas:
           myVar = false
        )
        
-   -- Son cuando usamos variables locales ya sea dentro de condiciones, loops, funciones, goroutines, etc.
+   -- Cuando usamos variables locales ya sea dentro de condiciones, loops, funciones, goroutines, etc.
 
 3.- ¿Qué significa inferencia de tipos de datos?
      -- Es cuando el compilador en este caso Golang, se hace el uso de las short variables para inferir el tipo de la variable por medio del valor, ejemplo:
