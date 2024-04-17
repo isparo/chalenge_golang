@@ -1,6 +1,6 @@
 # chalenge_golang
 
-Preguntas:
+## Preguntas:
 
 Responde las siguientes preguntas:
 1.- ¿Qué son “shorts variables”?
@@ -10,9 +10,13 @@ Responde las siguientes preguntas:
 5.- ¿Qué es “defer”?
 6.- ¿Qué son los “pointer”?
 7 .- ¿Qué es “struct”?
+     - Es un tipo de dato que 
 8.- ¿Qué es “goroutine”?
+    - Una goroutine nos ayuda a generar procesos que corrent en un thread 
 
-Ejercicio:
+
+
+## Ejercicio:
 Realiza el siguiente ejercicio, comparte la liga del repositorio de tu prueba.
 1. Crear un servicio de registro de usuario que reciba como parámetros usuario, correo,
 teléfono y contraseña. - listo
