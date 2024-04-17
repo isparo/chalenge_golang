@@ -34,3 +34,15 @@ func (us userService) ValidateUserByPhoneAndEmail(phone string, email string) (b
 
 	return isValid, nil
 }
+
+func (us userService) GetUserInfoByLogin(user, password string) (*User, error) {
+	log.Println("On domain.service.GetUserInfoByLogin service")
+
+	userInfo, err := us.userRepo.GetUserInfoByLogin(user, password)
+	if err != nil {
+		log.Println("On domain.service.GetUserInfoByLogin service. Error: ", err.Error())
+		return nil, err
+	}
+
+	return userInfo, nil
+}

@@ -2,6 +2,8 @@ package persistency
 
 import (
 	"database/sql"
+	"errors"
+	"fmt"
 	"log"
 
 	"github.com/josue/chalenge_golang/internal/domain/user"
@@ -54,4 +56,31 @@ func (ur userMySQLRepository) ValidateUserUniqueInfo(phone string, email string)
 	}
 
 	return true, nil
+}
+
+func (ur userMySQLRepository) GetUserInfoByLogin(userLogin, password string) (*user.User, error) {
+	log.Println("On userMySQLRepository.GetUserInfoByLogin")
+	var usesInfo user.User
+
+	err := ur.db.QueryRow("SELECT * FROM user where (email=? OR user_name=?) AND pass=?",
+		userLogin,
+		userLogin,
+		password).
+		Scan(&usesInfo.ID,
+			&usesInfo.UserName,
+			&usesInfo.PhoneNumber,
+			&usesInfo.Email,
+			&usesInfo.Pass)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			fmt.Println("On userMySQLRepository.GetUserInfoByLogin. Error: User Not Found")
+			return nil, errors.New("incorrect user or/and password")
+		}
+
+		log.Println("On userMySQLRepository.GetUserInfoByLogin. Error: ", err.Error())
+		return nil, err
+	}
+
+	return &usesInfo, nil
 }

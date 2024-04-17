@@ -11,6 +11,7 @@ import (
 type userDomainService interface {
 	CreateUser(userData user.User) error
 	ValidateUserByPhoneAndEmail(phone string, email string) (bool, error)
+	GetUserInfoByLogin(user, password string) (*user.User, error)
 }
 
 type userAPIService struct {
@@ -44,4 +45,19 @@ func (us userAPIService) CreateUser(input dto.UserDTO) error {
 	}
 
 	return nil
+}
+
+func (us userAPIService) LogIn(user, password string) (string, error) {
+	log.Println("On userAPIService.LogIn")
+
+	// generar jwt
+	userInfo, err := us.userService.GetUserInfoByLogin(user, password)
+	if err != nil {
+		log.Println("On userAPIService.LogIn - error: ", err.Error())
+		return "", err
+	}
+
+	log.Println(userInfo)
+
+	return "", nil
 }

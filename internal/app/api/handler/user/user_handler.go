@@ -10,6 +10,7 @@ import (
 
 type userAPIService interface {
 	CreateUser(input dto.UserDTO) error
+	LogIn(user, password string) (string, error)
 }
 
 type userHandler struct {
@@ -46,4 +47,30 @@ func (uh userHandler) CreateUser(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, nil)
+}
+
+func (uh userHandler) LogIn(c *gin.Context) {
+	log.Println("On userHandler.LogIn")
+
+	var input dto.UserLogIn
+	if err := c.BindJSON(&input); err != nil {
+		log.Println("On userHandler.LogIn - error: ", err.Error())
+		c.AbortWithStatusJSON(http.StatusBadRequest, err)
+		return
+	}
+
+	if err := input.Validate(); err != nil {
+		log.Println("On userHandler.LogIn - Invalid params: ", err)
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+		return
+	}
+
+	token, err := uh.userService.LogIn(input.User, input.Pass)
+	if err != nil {
+		log.Println("On userHandler.LogIn - error: ", err.Error())
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(200, gin.H{"token": token})
 }

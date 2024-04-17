@@ -13,6 +13,7 @@ import (
 
 type UserHandler interface {
 	CreateUser(c *gin.Context)
+	LogIn(c *gin.Context)
 }
 
 type apiV1 struct {

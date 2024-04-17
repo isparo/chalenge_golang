@@ -19,6 +19,7 @@ func (a apiV1) loadRoutes() {
 		user := v1.Group("/user")
 		{
 			user.POST("", a.userHandler.CreateUser)
+			user.POST("/login", a.userHandler.LogIn)
 		}
 	}
 
