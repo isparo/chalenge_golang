@@ -1,10 +1,11 @@
-package user
+package user_test
 
 import (
 	"errors"
 	"testing"
 
 	gomock "github.com/golang/mock/gomock"
+	"github.com/josue/chalenge_golang/internal/domain/user"
 	"github.com/stretchr/testify/assert"
 
 	uuid "github.com/satori/go.uuid"
@@ -14,21 +15,21 @@ func TestCreateUser(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	mockRepo := NewMockUserRepository(ctrl)
-	userService := NewUserService(mockRepo)
+	mockRepo := user.NewMockUserRepository(ctrl)
+	userService := user.NewUserService(mockRepo)
 
 	testID := uuid.NewV4()
 	testErrMsg := "error creating account"
 
 	tt := []struct {
 		name     string
-		obj      User
+		obj      user.User
 		err      error
 		wantsErr bool
 	}{
 		{
 			name: "Create User - Success",
-			obj: User{
+			obj: user.User{
 				ID:          &testID,
 				UserName:    "testName",
 				Email:       "test@email.com",
@@ -40,7 +41,7 @@ func TestCreateUser(t *testing.T) {
 		},
 		{
 			name: "Create User - Failure",
-			obj: User{
+			obj: user.User{
 				ID:          &testID,
 				UserName:    "testName",
 				Email:       "test@email.com",
@@ -75,8 +76,8 @@ func TestValidateUserByPhoneAndEmail(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	mockRepo := NewMockUserRepository(ctrl)
-	userService := NewUserService(mockRepo)
+	mockRepo := user.NewMockUserRepository(ctrl)
+	userService := user.NewUserService(mockRepo)
 
 	testPhone := "1234567890"
 	testEmail := "testemail@host.com"
@@ -133,8 +134,8 @@ func TestGetUserInfoByLogin(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	mockRepo := NewMockUserRepository(ctrl)
-	userService := NewUserService(mockRepo)
+	mockRepo := user.NewMockUserRepository(ctrl)
+	userService := user.NewUserService(mockRepo)
 
 	testUser := "testUser"
 	testPass := "123456@asdfA"
@@ -146,13 +147,13 @@ func TestGetUserInfoByLogin(t *testing.T) {
 		name     string
 		err      error
 		wantsErr bool
-		userInfo *User
+		userInfo *user.User
 	}{
 		{
 			name:     "TestGetUserInfoByLogin - Success",
 			err:      nil,
 			wantsErr: false,
-			userInfo: &User{
+			userInfo: &user.User{
 				UserName:    testUser,
 				Email:       testEmain,
 				PhoneNumber: testPhone,
