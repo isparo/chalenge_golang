@@ -41,3 +41,19 @@ La respuesta debe ser:
 “Falta el campo contraseña”
 Notas: Se consideran buenas prácticas, documentación en código, pruebas unitarias y
 arquitectura.
+
+----------
+Generate swagger
+swag init -d cmd,internal --parseDependency --parseInternal --parseDepth 2
+
+
+Go to API documentation (swagger):
+http://localhost:8080/swagger/index.html
+
+How to run it:
+
+start service and database:
+docker-compose up
+
+stop service and database:
+docker-compose down

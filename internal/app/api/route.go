@@ -6,6 +6,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang/glog"
+
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func (a apiV1) loadRoutes() {
@@ -22,6 +25,8 @@ func (a apiV1) loadRoutes() {
 			user.POST("/login", a.userHandler.LogIn)
 		}
 	}
+
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	err := r.Run(":8080")
 	if err != nil {

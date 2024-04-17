@@ -23,6 +23,17 @@ func NewUserHandler(userService userAPIService) userHandler {
 	}
 }
 
+// Create godoc
+//
+//	@Summary        Create new users
+//	@Description    Add a new User
+//	@Tags           User
+//	@Accept         json
+//	@Param          request body    dto.UserDTO  true    "user info"
+//	@Success        201
+//	@Failure        400
+//	@Failure        500
+//	@Router         /user [post]
 func (uh userHandler) CreateUser(c *gin.Context) {
 	log.Println("On userHandler.CreateUser")
 
@@ -49,6 +60,17 @@ func (uh userHandler) CreateUser(c *gin.Context) {
 	c.JSON(http.StatusCreated, nil)
 }
 
+// Create godoc
+//
+//	@Summary        Login
+//	@Description    Loging and generate token
+//	@Tags           User
+//	@Accept         json
+//	@Param          request body    dto.UserLogIn  true    "user login info"
+//	@Success        202
+//	@Failure        400
+//	@Failure        500
+//	@Router         /user/login [post]
 func (uh userHandler) LogIn(c *gin.Context) {
 	log.Println("On userHandler.LogIn")
 
