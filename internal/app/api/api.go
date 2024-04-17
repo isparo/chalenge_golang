@@ -4,8 +4,8 @@ import (
 	"log"
 
 	"github.com/gin-gonic/gin"
-	user_handler "github.com/josue/chalenge_golang/internal/app/api/handler/user"
-	user_service "github.com/josue/chalenge_golang/internal/app/api/service/user"
+	handler "github.com/josue/chalenge_golang/internal/app/api/handler"
+	service "github.com/josue/chalenge_golang/internal/app/api/service"
 	"github.com/josue/chalenge_golang/internal/domain/user"
 	"github.com/josue/chalenge_golang/internal/infrastructure/database"
 	"github.com/josue/chalenge_golang/internal/infrastructure/persistency"
@@ -43,8 +43,8 @@ func LoadApiV1() {
 
 	userDomainService := user.NewUserService(userRepository)
 
-	userService := user_service.NewUserAPIService(userDomainService)
-	userHandler := user_handler.NewUserHandler(userService)
+	userService := service.NewUserAPIService(userDomainService)
+	userHandler := handler.NewUserHandler(userService)
 
 	api := newApiV1(userHandler)
 	api.loadRoutes()
