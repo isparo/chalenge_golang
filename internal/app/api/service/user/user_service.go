@@ -3,10 +3,15 @@ package service
 import (
 	"errors"
 	"log"
+	"time"
 
+	"github.com/golang-jwt/jwt"
 	"github.com/josue/chalenge_golang/internal/app/api/dto"
 	"github.com/josue/chalenge_golang/internal/domain/user"
 )
+
+// this one could be on a configuration and taken from the EnvVars
+const secret string = "jwt_secret"
 
 type userDomainService interface {
 	CreateUser(userData user.User) error
@@ -50,14 +55,37 @@ func (us userAPIService) CreateUser(input dto.UserDTO) error {
 func (us userAPIService) LogIn(user, password string) (string, error) {
 	log.Println("On userAPIService.LogIn")
 
-	// generar jwt
 	userInfo, err := us.userService.GetUserInfoByLogin(user, password)
 	if err != nil {
 		log.Println("On userAPIService.LogIn - error: ", err.Error())
 		return "", err
 	}
 
-	log.Println(userInfo)
+	token, err := createToken(userInfo.ID.String(), userInfo.UserName, userInfo.Email, userInfo.PhoneNumber)
+	if err != nil {
+		log.Println("On userAPIService.LogIn - error creating token: ", err.Error())
+		return "", err
+	}
 
-	return "", nil
+	return *token, nil
+}
+
+func createToken(id, userName, email, phoneNumber string) (*string, error) {
+	var jwtKey = []byte(secret)
+
+	claims := jwt.MapClaims{
+		"id":           id,
+		"username":     userName,
+		"email":        email,
+		"phone_number": phoneNumber,
+		"exp":          time.Now().Add(time.Minute * 30).Unix(),
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenString, err := token.SignedString(jwtKey)
+	if err != nil {
+		return nil, err
+	}
+
+	return &tokenString, nil
 }

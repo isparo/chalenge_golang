@@ -15,6 +15,15 @@ type UserDTO struct {
 	Password    string `json:"password"`
 }
 
+func NewUserDTO(userName string, email string, phoneNumber string, password string) UserDTO {
+	return UserDTO{
+		UserName:    userName,
+		Email:       email,
+		PhoneNumber: phoneNumber,
+		Password:    password,
+	}
+}
+
 func (u UserDTO) Validate() error {
 	return validation.ValidateStruct(&u,
 		validation.Field(&u.UserName, validation.Required, validation.Length(3, 20)),
@@ -27,7 +36,7 @@ func (u UserDTO) Validate() error {
 }
 
 // TODO: complete this function
-func validatePassword2(value interface{}) error {
+func validatePassword(value interface{}) error {
 	password := value.(string)
 	// regex := `(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@$&])^[\S]+$`
 	// regex := `^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@$&\w])[\S]+$`
