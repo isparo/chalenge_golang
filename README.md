@@ -43,17 +43,26 @@ Notas: Se consideran buenas prácticas, documentación en código, pruebas unita
 arquitectura.
 
 ----------
-Generate swagger
+## Unit testing
+-- For this example I'm using gomock in order to generate the mock files
+
+-- I'm using test tables to define the unit test
+
+## Generate swagger
 swag init -d cmd,internal --parseDependency --parseInternal --parseDepth 2
 
 
-Go to API documentation (swagger):
+## Go to API documentation (swagger):
 http://localhost:8080/swagger/index.html
 
-How to run it:
+## How to run it:
+
+For this exaple I'm using `docker-compose`in order to configure a local deployment that going to run
+the `user` service and the local database.
 
 start service and database:
-docker-compose up
+`docker-compose up`
 
 stop service and database:
-docker-compose down
+`docker-compose down`
+
