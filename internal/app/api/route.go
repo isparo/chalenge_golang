@@ -1,6 +1,7 @@
 package api
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -8,7 +9,7 @@ import (
 )
 
 func (a apiV1) loadRoutes() {
-	glog.Info("loading routes")
+	log.Println("loading routes")
 
 	r := gin.Default()
 	r.GET("/ping", pong)
@@ -21,15 +22,13 @@ func (a apiV1) loadRoutes() {
 		}
 	}
 
-	//err := r.Run(api.apiConfig.Host + ":" + api.apiConfig.Port)
 	err := r.Run(":8080")
 	if err != nil {
 		glog.Error("can not start service")
 	}
-
 }
 
 func pong(c *gin.Context) {
-	glog.Info("pong handler")
+	log.Println("pong handler")
 	c.JSON(http.StatusOK, gin.H{"msg": "pong"})
 }

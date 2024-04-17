@@ -1,13 +1,15 @@
 package user
 
 import (
+	"log"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
-	"github.com/golang/glog"
+	"github.com/josue/chalenge_golang/internal/app/api/dto"
 )
 
-// Interface to mock user API service
 type userAPIService interface {
-	CreateUser() error
+	CreateUser(input dto.UserDTO) error
 }
 
 type userHandler struct {
@@ -21,7 +23,27 @@ func NewUserHandler(userService userAPIService) userHandler {
 }
 
 func (uh userHandler) CreateUser(c *gin.Context) {
-	glog.Info("On userHamdler.CreateUser")
+	log.Println("On userHandler.CreateUser")
 
-	uh.userService.CreateUser()
+	var input dto.UserDTO
+
+	if err := c.BindJSON(&input); err != nil {
+		log.Println("On userHandler.CreateUser - error: ", err.Error())
+		c.AbortWithStatusJSON(http.StatusBadRequest, err)
+		return
+	}
+
+	if err := input.Validate(); err != nil {
+		log.Println("On userHandler.CreateUser - error creating user: ", err)
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+		return
+	}
+
+	if err := uh.userService.CreateUser(input); err != nil {
+		log.Println("On create user handler- error creating user: ", err.Error())
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusCreated, nil)
 }

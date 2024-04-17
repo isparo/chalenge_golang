@@ -1,11 +1,12 @@
 package main
 
 import (
-	"github.com/golang/glog"
+	"log"
+
 	"github.com/josue/chalenge_golang/internal/app/api"
 )
 
 func main() {
-	glog.Info("Starting service")
+	log.Println("Starting service")
 	api.LoadApiV1()
 }
