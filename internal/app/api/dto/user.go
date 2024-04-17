@@ -1,7 +1,6 @@
 package dto
 
 import (
-	"errors"
 	"regexp"
 
 	validation "github.com/go-ozzo/ozzo-validation"
@@ -31,20 +30,10 @@ func (u UserDTO) Validate() error {
 		validation.Field(&u.PhoneNumber, validation.Required, validation.Length(10, 10)),
 		validation.Field(&u.Password,
 			validation.Required,
-			validation.Length(6, 12)),
+			validation.Length(6, 12),
+			validation.Match(regexp.MustCompile(`[A-Z]`)).Error("must contain at least one uppercase letter"),
+			validation.Match(regexp.MustCompile(`[a-z]`)).Error("must contain at least one lowercase letter"),
+			validation.Match(regexp.MustCompile(`[0-9]`)).Error("must contain at least one number"),
+			validation.Match(regexp.MustCompile(`[@$&]`)).Error("must contain at least one special character (@, $, or &)")),
 	)
-}
-
-// TODO: complete this function
-func validatePassword(value interface{}) error {
-	password := value.(string)
-	// regex := `(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@$&])^[\S]+$`
-	// regex := `^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@$&\w])[\S]+$`
-	regex := `^(?=.*[A-Z])(?=.*[a-z])(?=.*[@$&\w])[\s\S]+$`
-
-	if matched, _ := regexp.MatchString(regex, password); !matched {
-		return errors.New("The password must contain at least one uppercase letter, one lowercase letter, one number, and one special character: @, $, or &")
-	}
-
-	return nil
 }
