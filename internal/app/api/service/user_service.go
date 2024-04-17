@@ -3,6 +3,7 @@ package service
 import (
 	"errors"
 	"log"
+	"strings"
 	"time"
 
 	"github.com/golang-jwt/jwt"
@@ -72,6 +73,11 @@ func (us userAPIService) LogIn(user, password string) (string, error) {
 
 func createToken(id, userName, email, phoneNumber string) (*string, error) {
 	var jwtKey = []byte(secret)
+
+	id = strings.TrimSpace(id)
+	userName = strings.TrimSpace(userName)
+	email = strings.TrimSpace(email)
+	phoneNumber = strings.TrimSpace(phoneNumber)
 
 	claims := jwt.MapClaims{
 		"id":           id,

@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/josue/chalenge_golang/internal/domain/user"
 	uuid "github.com/satori/go.uuid"
@@ -27,10 +28,10 @@ func (ur userMySQLRepository) SaveUser(user user.User) error {
 	randomUUID := uuid.NewV4()
 	_, err := ur.db.Exec(query,
 		randomUUID.String(),
-		user.UserName,
-		user.PhoneNumber,
-		user.Email,
-		user.Pass)
+		strings.TrimSpace(user.UserName),
+		strings.TrimSpace(user.PhoneNumber),
+		strings.TrimSpace(user.Email),
+		strings.TrimSpace(user.Pass))
 	if err != nil {
 		log.Println("On userMySQLRepository.SaveUser. Error: ", err.Error())
 		return err
@@ -43,6 +44,9 @@ func (ur userMySQLRepository) SaveUser(user user.User) error {
 
 func (ur userMySQLRepository) ValidateUserUniqueInfo(phone string, email string) (bool, error) {
 	log.Println("On userMySQLRepository.ValidateUserUniqueInfo")
+
+	phone = strings.TrimSpace(phone)
+	email = strings.TrimSpace(email)
 
 	var count int
 	err := ur.db.QueryRow("SELECT COUNT(*) FROM user where phone_number=? OR email=?", phone, email).Scan(&count)
