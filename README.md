@@ -2,41 +2,45 @@
 
 ## Preguntas:
 
--- Responde las siguientes preguntas:
+## Responde las siguientes preguntas:
 
 1.- ¿Qué son “shorts variables”?
-     - es una forma de declarar las variables en la cual no se declara su tipo y el compilador lo infiere por medio del valor, ejemplo:
+
+- Es una forma de declarar las variables en la cual no se declara su tipo y el compilador lo infiere por medio del valor, ejemplo:
      
      myVar1 := "the value"
      myVar2 := 0
      myVar := false
      
 2.- ¿Cuando puedes utilizar “short variables” y cuando no?
-   -- Para declarar y asignar un valor que ya sepamos que va a tener la variable
-   -- En for loops para definir las condiciones `for i := 0; i <5; i++ {}` 
-   -- cuando tenemos un bloque var() y vamos para declarar variables esto nos ayuda a hacerlo mas legible
+
+   - Para declarar y asignar un valor que ya sepamos que va a tener la variable
+   - En for loops para definir las condiciones `for i := 0; i <5; i++ {}` 
+   - cuando tenemos un bloque var() y vamos para declarar variables esto nos ayuda a hacerlo mas legible
        
-       var(
-          myVar1 = "the value"
-          myVar2 = 0
-          myVar = false
-       )
+            var(
+               myVar1 = "the value"
+               myVar2 = 0
+               myVar = false
+            )
        
-   -- Cuando usamos variables locales ya sea dentro de condiciones, loops, funciones, goroutines, etc.
+   - Cuando usamos variables locales ya sea dentro de condiciones, loops, funciones, goroutines, etc.
 
 3.- ¿Qué significa inferencia de tipos de datos?
-     -- Es cuando el compilador en este caso Golang, se hace el uso de las short variables para inferir el tipo de la variable por medio del valor, ejemplo:
+
+ - Es cuando el compilador en este caso Golang, se hace el uso de las short variables para inferir el tipo de la variable por medio del valor, ejemplo:
 
           myVar1 = "the value"  --- string
           myVar2 = 0  ---- int
           myVar = false ---- bool
      
 4.- ¿Puede una constante declararse de manera corta como son “short variables”?
-     - No como tal ya que no pdríamos hacer `const myConst := "val"` pero si podemos definirla `const myConst = "val"` lo que
-       hace que el compilador infiera el tipo de dato.
+
+- No como tal ya que no pdríamos hacer `const myConst := "val"` pero si podemos definirla `const myConst = "val"` lo que hace que el compilador infiera el tipo de dato.
 
 5.- ¿Qué es “defer”?
-     - Es una instruccion que nos ayuda a ejecutar alguna logica cuando la funcion haya terminado, ejemplo:
+
+   - Es una instruccion que nos ayuda a ejecutar alguna logica cuando la funcion haya terminado, ejemplo:
 
      func myFunc() {
           fmt.Println("esto")
@@ -49,6 +53,7 @@
      }
 
 6.- ¿Qué son los “pointer”?
+
    - Son variables que almacenan la direccion de memoria de una variable, a diferencia de una variable sin puntero que almacena el valor, cuando se usa un puntero este asigna el valor a un
      espacio de memoria. 
 
@@ -57,23 +62,24 @@
     myValue := 12
     var myPointer *int = &myValue
 
-    - Los punteros tambien nos ayudan a pasar valores por referencia en las funciones ya que por defecto estas son majadas por valor.
-      Esto es util cuando queremos modificar el valor de alguna propiedad de una structura, etc.
+ - Los punteros tambien nos ayudan a pasar valores por referencia en las funciones ya que por defecto estas son majadas por valor. Esto es util cuando queremos modificar el valor de alguna propiedad de una structura, etc.
 
 7 .- ¿Qué es “struct”?
-     - Es un tipo de dato que nos ayuda a agrupar caracteristicas o propiedades que perteneces a una entidad, por ejemplo Usuario, podemos hacer uso de 
-       una struct para definir sus caracteristicas.
 
-     - Aparte de poderse usar para definir entidades, tambien puede ser usada para definir los valores de configuracion usados por un servicio, ejemplo:
+  - Es un tipo de dato que nos ayuda a agrupar caracteristicas o propiedades que perteneces a una entidad, por ejemplo Usuario, podemos hacer uso de 
+    una struct para definir sus caracteristicas.
 
-     type Config struct {
-         Host string
-         Port string
-         Envvar1 string
-     }
+   - Aparte de poderse usar para definir entidades, tambien puede ser usada para definir los valores de configuracion usados por un servicio, ejemplo:
+   
+          type Config struct {
+              Host string
+              Port string
+              Envvar1 string
+          }
      
 8.- ¿Qué es “goroutine”?
-    - Es una funcion que se ejecuta de forma paralela al proceso principal, esta puede ser usada para concurrencia y paralelismo en nuestars applicaciones.
+
+   - Es una funcion que se ejecuta de forma paralela al proceso principal, esta puede ser usada para concurrencia y paralelismo en nuestars applicaciones.
 
 
 
